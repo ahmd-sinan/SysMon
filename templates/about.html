@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <div class="p-3 text-light">
+        <div class="card-header">
+            <h2 class="fw-bold text-white mb-4">About SysMon</h2>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="fw-bold text-info mb-2">Project Overview</h4>
+            <p class="mb-1"><strong>Title: </strong>SysMon - Cross-Platform System Monitor</p><br>
+            <p class="about-description">
+                SysMon is a real-time, lightweight system resource monitoring tool developed as a CS50x 2026 Final Project. 
+                It executes low-level system polling via an asynchronous Python engine to expose hardware diagnostics, 
+                serving data dynamically through a RESTful API. The application architecture adapts natively across both Windows and Ubuntu Linux environments.
+            </p>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="fw-bold text-info mb-2">Tech Stack & Dependencies </h4>
+            <ul class="list-unstyled text-light mb-1 techstack-list">
+                <li><img src="static/images/python-icon.svg" class="tech-icon" alt=""> <strong>Python: </strong> Core Backend (v3.14.5)</li>
+                <li><img src="static/images/flask-icon.svg" class="tech-icon invert-icon" alt=""> <strong>Flask: </strong> API Routing Framework</li>
+                <li>🐍 <strong>psutil: </strong> Native Hardware Monitoring Engine</li>
+                <li>🛠️ <strong>WMI / Py-cpuinfo: </strong> Low-Level Hardware Diagnostics</li>
+                <li>⚡ <strong>GPUtil: </strong> Graphics Processing Unit Monitor</li>
+                <li><img src="static/images/javascript-icon.svg" class="tech-icon" alt=""> <strong>JavaScript:</strong> Frontend Polling Controller</li>
+                <li>📈 <strong>Chart.js: </strong> Frontend Data Visualization</li>
+                <li><img src="static/images/html5-icon.svg" class="tech-icon" alt=""> <strong>HTML5:</strong> Core Document Structure</li>
+                <li><img src="static/images/css3-icon.svg" class="tech-icon" alt=""> <strong>CSS3:</strong> Styling Architecture</li>
+                <li><img src="static/images/bootstrap-icon.svg" class="tech-icon" alt=""> <strong>Bootstrap 5: </strong> Layout Framework</span>
+            </ul>
+            <span class="text-light font-monospace">Data acquisition occurs via non-blocking asynchronous intervals every 1.0 seconds to eliminate interface thread locks.</span>
+        </div>
+        
+        <div class="mb-4">
+            <h4 class="fw-bold text-info mb-3">Licence: </h4>
+            <p class="mb-1"><strong>MIT Licence </strong></p>
+            <span class="text-light font-monospace">Permissive terms: Grants full rights for codebase modification, distribution, and custom packaging with attribution.</span>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="fw-bold text-info mb-2">Source Code</h4>
+            <a href="https://github.com" target="_blank" class="text-decoration-none text-info">Click Here --></a>
+            <p class="text-light font-monospace">The official repository for this Project. 
+                Review the complete Python backend architecture and JavaScript logic.</p>
+        </div>
+
+        <div class="mb-5"></div>
+            <h4 class="fw-bold text-info mb-4">Connect with the Developer</h4>
+            <div class="links">
+                <a href="https://github.com/ahmd-sinan" target="_blank">
+                        <img src="{{ url_for('static', filename='images/github.png') }}" alt="GitHub" class="icon">
+                </a>
+
+                <a href="https://www.linkedin.com/in/ahamed-sinan-k-840236343/" target="_blank">
+                    <img src="{{ url_for('static', filename='images/linkedin.png') }}" alt="LinkedIn" class="icon">
+                </a>
+
+                <a href="https://x.com/Ahamed_Sinan_" target="_blank">
+                    <img src="{{ url_for('static', filename='images/x.png') }}" alt="X" class="icon">
+                </a>
+            </div>
+        </div>
+
+        <hr class="my-4 hr">
+
+        <div class="row">
+            <div class="col-12 text-center py-2">
+                <h6 class="fw-bold text-white mb-1">Built with absolute precision by Ahamed Sinan</h6>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

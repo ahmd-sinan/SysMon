@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <h3 class="mb-3">Dashboard</h3>
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card custom-card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span class="fw-bold">
+                        <img src="{{ url_for('static', filename='images/cpu-icon.png') }}" alt="CPU Icon" class="me-2 card-icon"> CPU Usage</span>
+                    <span id="cpuUsage" class="fw-bold">Live CPU: 0%</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="cpuChart" width="400" height="160"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card custom-card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span class="fw-bold">
+                        <img src="{{ url_for('static', filename='images/ram-icon.png') }}" alt="RAM Icon" class="me-2 card-icon"> Memory Usage</span>
+                    <span id="memoryUsage" class="fw-bold">Live Memory: 0%</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="memoryChart" width="400" height="160"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card custom-card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span class="fw-bold">
+                        <img src="{{ url_for('static', filename='images/disk-icon.png') }}" alt="Disk Icon" class="me-2 card-icon"> Disk Usage</span>
+                    <span id="diskUsage" class="fw-bold">Live Disk: 0%</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="diskChart" width="400" height="160"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card custom-card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span class="fw-bold">
+                        <img src="{{ url_for('static', filename='images/network-icon.png') }}" alt="Network Icon" class="me-2 card-icon"> Network Usage</span>
+                    <span id="networkUsage" class="fw-bold"> </span>
+                </div>
+                <div class="card-body">
+                    <canvas id="networkChart" width="400" height="160"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

@@ -1,0 +1,134 @@
+
+p, li {
+    font-family: sans-serif;
+}
+
+.custom-body {
+    background-color: #171821;
+    color: #d1d5db;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #21222d;
+    border-right: 1px solid #2e2f3e;
+}
+
+.sidebar-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    opacity: 0.7;
+    vertical-align: middle;
+    transform: translateY(-2px);
+    transition: opacity 0.2s ease-in-out;
+}
+
+.nav-link {
+    color: #8f95b2;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    background-color: #2e2f3e;
+}
+
+.nav-link.active {
+    color: #ffffff;
+    background-color: #2e2f3e;
+    font-weight: 500;
+}
+
+.nav-link:hover .sidebar-icon,
+.nav-link.active .sidebar-icon {
+    opacity: 1;
+}
+
+.custom-card {
+    background-color: #21222d;
+    border: 1px solid #2e2f3e;
+    border-radius: 10px;
+    color: #d1d5db;
+}
+
+.custom-card .card-header {
+    border-bottom: 1px solid #2e2f3e;
+    background-color: transparent;
+    font-size: 1.1rem;
+}
+
+.card-icon {
+    height: 30px;
+    width: 30px;
+    object-fit: contain; 
+}
+
+.diag-card {
+    background-color: #21222d;
+    border-radius: 12px;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.links {
+    display: flex;
+    gap: 7.5rem; 
+    align-items: center;
+}
+
+.icon {
+    width: 28px;
+    height: 28px;
+    opacity: 0.8;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    filter: brightness(0) invert(1);
+}
+
+.icon:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+}
+
+.custom-progress {
+    height: 15px; 
+    background-color: #2a2b36;
+} 
+
+.text-white {
+    font-weight: 600; 
+    letter-spacing: 1px;
+}
+
+.text-light {
+    opacity: 0.85; 
+    font-size: 0.95rem;
+}
+
+.about-description {
+    opacity: 0.9; 
+    line-height: 1.6;
+}
+
+.techstack-list {
+    line-height: 2.0; 
+    font-size: 1rem;
+}
+
+.tech-icon {
+    width: 16px;
+    height: auto;
+}
+
+.invert-icon {
+    filter: invert(1);
+}
+
+.hr {
+    border-color: #2b2f32;
+}

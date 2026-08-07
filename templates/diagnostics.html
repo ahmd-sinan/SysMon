@@ -1,0 +1,240 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <h3 class="mb-3">Diagnostics</h3>
+        <div class="row row-cols-1 row-cols-lg-2 g-4">
+            
+            <div class="col">
+                <div class="diag-card">
+                    <div class="diag-header d-flex justify-content-center align-items-center mb-2">
+                        <span class="fw-bold fs-5">CPU</span>
+                    </div>
+                    <div class="diag-body" id="diag-cpu-body">
+                        <ul class="list-unstyled mt-2">
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Name: </span>
+                                <span id="cpu-name" class="fw-bold">Loading...</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Utilization: </span>
+                                <span id="cpu-util" class="fw-bold">0%</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Temperature: </span>
+                                <span id="cpu-temp" class="fw-bold">--°C</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Current Freq: </span>
+                                <span id="cpu-fz" class="fw-bold">0 GHz</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Max Freq: </span> 
+                                <span id="cpu-max-fz" class="fw-bold">0 GHz</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Processes: </span>
+                                <span id="cpu-processes" class="fw-bold">0 Tasks</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Cores (Physical): </span>
+                                <div id="cpu-cores" class="fw-bold">Loading...</div>
+                            </li> 
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Threads (Total Cores): </span>
+                                <div id="cpu-threads" class="fw-bold">Loading...</div>
+                            </li> 
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="diag-card">
+                    <div class="diag-header d-flex justify-content-center align-items-center mb-2">
+                        <span class="fw-bold fs-5">Memory</span>
+                    </div>
+                    <div class="diag-body" id="diag-ram-body">
+                        <ul class="list-unstyled mt-2">
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Total Capacity: </span>
+                                <span id="ram-total" class="fw-bold"> 0 GB</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Available / Free: </span>
+                                <span id="ram-available" class="fw-bold">0 GB</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Used RAM: </span>
+                                <span id="ram-used" class="fw-bold">0 GB</span>
+                            </li>
+                            <li class="mb-3">
+                                <div class="progress custom-progress">
+                                    <div id="ram-progress" class="progress-bar bg-secondary" role="progressbar" 
+                                    style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Active: </span>
+                                <span id="ram-active" class="fw-bold">0 GB</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Inactive / Cached: </span> 
+                                <span id="ram-inact" class="fw-bold">0 GB</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Virtual (Swap): </span>
+                                <span id="ram-swap" class="fw-bold">0 GB</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="diag-card">
+                    <div class="diag-header d-flex justify-content-center align-items-center mb-2">
+                        <span class="fw-bold fs-5">GPU</span>
+                    </div>
+                    <div class="diag-body" id="diag-gpu-body">
+                        <ul class="list-unstyled">
+                            <li class="fw-bold mb-1 border-bottom border-secondary pb-1">iGPU</li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Name: </span>
+                                <span id="igpu-name" class="fw-bold">Loading...</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Usage: </span>
+                                <span id="igpu-usage" class="fw-bold">0%</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Temperature: </span>
+                                <span id="igpu-temp" class="fw-bold">--°C</span>
+                            </li>
+
+                            <li class="fw-bold mb-1 border-bottom border-secondary pb-1">dGPU</li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Name: </span>
+                                <span id="dgpu-name" class="fw-bold">Loading...</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Usage: </span>
+                                <span id="dgpu-usage" class="fw-bold">0%</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Temperature: </span>
+                                <span id="dgpu-temp" class="fw-bold">--°C</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Dedicated VRAM: </span>
+                                <span id="dgpu-vram" class="fw-bold">0 GB / 0 GB</span>
+                            </li>
+                        </ul>             
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="diag-card">
+                    <div class="diag-header d-flex justify-content-center align-items-center mb-2">
+                        <span class="fw-bold fs-5">Disk/Storage</span>
+                    </div>
+                    <div class="diag-body" id="diag-disk-body">
+                        <ul class="list-unstyled mt-2">
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Drive / FS: </span>
+                                <span id="disk-name" class="fw-bold">Loading...</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Total Capacity: </span>
+                                <span id="disk-total" class="fw-bold">0 GB</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Space Used: </span>
+                                <span id="disk-used" class="fw-bold">0 GB</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Space Free: </span>
+                                <span id="disk-free" class="fw-bold">0 GB</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="diag-card">
+                    <div class="diag-header d-flex justify-content-center align-items-center mb-2">
+                        <span class="fw-bold fs-5">Power/Battery</span>
+                    </div>
+                    <div class="diag-body" id="diag-battery-body">
+                        <ul class="list-unstyled mt-2">
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Power Status: </span>
+                                <span id="bat-status" class="fw-bold">Loading...</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Battery Level: </span>
+                                <span id="bat-percent" class="fw-bold">0%</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Time Remaining: </span>
+                                <span id="bat-time" class="fw-bold">--:--</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Charging State: </span>
+                                <span id="bat-charge" class="fw-bold">Loading...</span>
+                            </li>
+                            <li class="mt-4">
+                                <div class="progress custom-progress">
+                                    <div id="bat-progress" class="progress-bar bg-secondary" role="progressbar" 
+                                    style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="diag-card">
+                    <div class="diag-header d-flex justify-content-center align-items-center mb-2">
+                        <span class="fw-bold  fs-5">System/Users</span>
+                    </div>
+                    <div class="diag-body" id="diag-sys-body">
+                        <ul class="list-unstyled mt-2">
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">OS: </span>
+                                <span id="sys-os" class="fw-bold">Loading...</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Device Name: </span>
+                                <span id="sys-hostname" class="fw-bold">Loading...</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">System Uptime: </span>
+                                <span id="sys-uptime" class="fw-bold">0h 0m</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Boot Time: </span>
+                                <span id="sys-boot" class="fw-bold">--:-- --</span>
+                            </li>
+                            <li class="d-flex justify-content-between mb-2">
+                                <span class="text">Active User: </span>
+                                <span id="sys-user" class="fw-bold">Loading...</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>     
+
+{% endblock %}
