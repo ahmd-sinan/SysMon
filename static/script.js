@@ -219,7 +219,7 @@ if (window.location.pathname == "/diagnostics") {
             } else if (data.ram_percent >= 60) {
                 ramProgress.className = "progress-bar bg-warning";
             } else {
-                ramProgress.className = "progress-bar bg-secondary"; 
+                ramProgress.className = "progress-bar bg-info"; 
             }
 
 
@@ -274,7 +274,7 @@ if (window.location.pathname == "/diagnostics") {
             } else if (data.bat_status === "Plugged In" || data.bat_charge === "Charging") {
                 batProgress.className = "progress-bar bg-success"; // Green when charging
             } else {
-                batProgress.className = "progress-bar bg-secondary"; // Blue for normal
+                batProgress.className = "progress-bar bg-info"; // Blue for normal
             }
 
 
