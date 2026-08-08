@@ -3,9 +3,17 @@
 ### **[Demo Video](Link)**
 
 ## Project Description
-**SysMon** is a real-time system monitoring cross-platform web app built as a **CS50x 2026 Final Project**. The backend is powered by Python and Flask, which constantly pulls live hardware data and serves it to the frontend via a RESTful API. The application is designed to work seamlessly right out of the box on both Windows and Linux environments.
+**SysMon** is a real-time system monitoring cross-platform web app built as a **CS50x 2026 Final Project**. The backend is powered by Python and Flask, which constantly pulls live hardware data and serves it to the frontend as raw JSON data. The application is designed to work seamlessly right out of the box on both Windows and Linux environments.
 
 The project features an elegant, responsive dark-mode dashboard that displays core performance analytics through live telemetry streams and rolling data charts, eliminating the need for complex desktop native utility tools. 
+
+---
+
+## Features
+* **Live Dashboards:** Tracks CPU, RAM, Disk, and Network performance live using dynamic charts
+* **Deep Hardware Diagnostics:** Exposes detailed specs like processor core counts, clock speeds, active processes, and storage capacities
+* **Cross-Platform:** Automatically detects whether it's running on Windows or Linux and adapts hardware sensor queries safely.
+* **Responsive Dark-Mode UI:** Built with Bootstrap 5 and custom CSS to provide a clean, modern dashboard that scales nicely across different screen sizes
 
 ---
 
@@ -32,7 +40,6 @@ The project features an elegant, responsive dark-mode dashboard that displays co
 
 ## File Structure
 ```
----text
 sysmon/
 ├── app.py               # It runs the Flask server, figures out what operating system you are using, and gathers all the hardware data to send to the frontend.
 ├── requirements.txt     # A simple list of the Python packages needed to run this application
@@ -52,7 +59,7 @@ sysmon/
 ---
 
 ## Design Decisions 
-* **Using a REST API:** Instead of reloading the web page every time the CPU usage changes, I created an API route (`/api/data`) in Flask. The frontend uses JavaScript `fetch()` to grab this data in the background. This makes the dashboard feel completely real-time.
+Background Data Fetching: Instead of reloading the web page every time the CPU usage changes, I created background data routes in Flask. The frontend uses JavaScript fetch() to grab this data in the background. This makes the dashboard feel completely real-time.
 * **Stopping Memory Leaks:** If a live chart runs for an hour, it collects thousands of data points and can crash the browser. To fix this, I wrote logic in JavaScript using `.shift()` to always delete the oldest data point once the chart hits 20 items. This keeps the browser fast forever.
 * **Handling Different Operating Systems:** Getting hardware data on a Windows PC is completely different than on a Linux server. I used `platform.system()` in Python to detect the OS. If a certain command (like checking a specific GPU) fails, I used `try/except` blocks to safely show "Not Available" instead of letting the whole app crash.
 
@@ -61,7 +68,7 @@ sysmon/
 # How to Run
 * **Clone the Repo:**
 ```bash
-git clone [https://github.com/ahmd-sinan/SysMon.git](https://github.com/ahmd-sinan/SysMon.git)
+git clone https://github.com/ahmd-sinan/SysMon.git
 cd SysMon
 ```
 * **Install required packages:**
@@ -82,7 +89,7 @@ This project is licensed under the standard **MIT License**
 
 ---
 
-## About the Developer
+## Author
 Built by ***Ahamed Sinan***
 
 *⭐ If you found this project helpful or interesting, feel free to drop a star on the repository!*
