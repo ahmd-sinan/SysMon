@@ -1,6 +1,6 @@
 # SysMon
 
-#### **[Demo Video](https://youtu.be/59HtrCSEk_A?si=bcj8wCrmeUG4UOp_)**
+#### **[Video Demo](https://youtu.be/59HtrCSEk_A?si=bcj8wCrmeUG4UOp_)**
 
 ## Description
 **SysMon** is a real-time system monitoring cross-platform web app built as a **CS50x 2026 Final Project**. The backend is powered by Python and Flask, which constantly pulls live hardware data and serves it to the frontend as raw JSON data. The application is designed to work seamlessly right out of the box on both Windows and Linux environments.
