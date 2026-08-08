@@ -9,12 +9,11 @@
     </head>
 
     <body class="custom-body">
-        <div class="d-flex" style="min-height: 100vh;">
+        <div class="d-flex" class="app-container">
 
-            <div class="sidebar p-3 flex-shrink-0"> 
+            <nav class="sidebar p-3 flex-shrink-0"> 
                 <h4 class="text-white mt-2 mb-4">SYSMON</h4>
                 <hr>
-
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">
@@ -35,15 +34,14 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </nav>
 
-            <div class="flex-grow-1 p-4">
+            <main class="flex-grow-1 p-4">
                 {% block main %}
                 {% endblock %}
-            </div>
+            </main>
 
         </div>
-
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>

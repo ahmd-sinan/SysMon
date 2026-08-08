@@ -124,19 +124,21 @@ if (window.location.pathname == "/") {
 
         .then(response => response.json())
         .then(data => {
-            document.getElementById("cpuUsage").innerHTML = "<span style='color: #d1d5db;'>Live CPU: </span>" + "<strong class='live-data' style='font-size: 24px; color: #00ff00;'>" + data.cpu + "% </strong>";
+            document.getElementById("cpuUsage").innerHTML = "<span style='color: #d1d5db;'>Live CPU: </span>" + 
+            "<strong class='live-data' style='font-size: 24px; color: #00ff00;'>" + data.cpu + "% </strong>";
 
-            // 1073741824 = 1024**3
-            document.getElementById("memoryUsage").innerHTML = "<span style='color: #d1d5db;'>Live RAM: </span>" + "<strong class='live-data' style='font-size: 24px; color: #00bfff;'>" + data.memory + "%</strong>  <strong style='color: #00bfff;'>(" +
-            (data.used_ram / (1024**3)).toFixed(2) + "GB / " + Math.ceil(data.total_ram / (1024**3)) + "GB )</strong>";
+            document.getElementById("memoryUsage").innerHTML = "<span style='color: #d1d5db;'>Live RAM: </span>" + "<strong class='live-data' style='font-size: 24px; color: #00bfff;'>" + 
+            data.memory + "%</strong>  <strong style='color: #00bfff;'>(" + (data.used_ram / (1024**3)).toFixed(2) + "GB / " + Math.ceil(data.total_ram / (1024**3)) + "GB )</strong>";
 
             document.getElementById("diskUsage").innerHTML = 
-            "<span style='color: #ffffff;'><span style='color: #d1d5db;'>Read: </span>" + "<strong class='live-data' style='font-size: 20px;'>" + data.read + "MB/s</strong></span>" +
-            "<span style='color: white'>  |  </span>" + "<span style='color: #a200ff;'><span style='color: #d1d5db'>Write: </span>" + "<strong class='live-data' style='font-size: 20px;'>" + data.write + "MB/s</strong></span>";
+            "<span style='color: #ffffff;'><span style='color: #d1d5db;'>Read: </span>" + "<strong class='live-data' style='font-size: 20px;'>" + 
+            data.read + "MB/s</strong></span>" + "<span style='color: white'>  |  </span>" + "<span style='color: #a200ff;'><span style='color: #d1d5db'>Write: </span>" + 
+            "<strong class='live-data' style='font-size: 20px;'>" + data.write + "MB/s</strong></span>";
 
             document.getElementById("networkUsage").innerHTML = 
             "<span style='color: #ffff00;'><span style='color: #d1d5db'>Download: </span>" + "<strong class='live-data' style='font-size: 20px;'>" + data.net_down + "MB/s</strong></span>" + 
-            "<span style='color: white'>  |  </span>" + "<span style='color: #ff8c00;'><span style='color: #d1d5db'>Upload: </span>" + "<strong class='live-data' style='font-size: 20px;'>" + data.net_up + "MB/s</strong></span>";
+            "<span style='color: white'>  |  </span>" + "<span style='color: #ff8c00;'><span style='color: #d1d5db'>Upload: </span>" + "<strong class='live-data' style='font-size: 20px;'>" + 
+            data.net_up + "MB/s</strong></span>";
 
             let currentTime = new Date().toLocaleTimeString();
 
@@ -194,14 +196,12 @@ if (window.location.pathname == "/diagnostics") {
             // CPU  
             document.getElementById("cpu-name").innerHTML = data.cpu_name;
             document.getElementById("cpu-util").innerHTML = data.cpu_utilization + "%";
-            document.getElementById("cpu-temp").innerHTML = data.cpu_temp;
             document.getElementById("cpu-fz").innerHTML = data.cpu_current_fz + " GHz";
             document.getElementById("cpu-max-fz").innerHTML = data.cpu_max_fz + " GHz";
             document.getElementById("cpu-processes").innerHTML = data.cpu_proc + " Tasks";
             document.getElementById("cpu-cores").innerHTML = data.cpu_cores;
             document.getElementById("cpu-threads").innerHTML = data.cpu_threads;
             
-
 
             //  RAM
             document.getElementById("ram-total").innerHTML = Math.ceil(data.ram_total / (1024**3)) + " GB  (" + data.ram_total + " Bytes)";
@@ -219,15 +219,13 @@ if (window.location.pathname == "/diagnostics") {
             } else if (data.ram_percent >= 60) {
                 ramProgress.className = "progress-bar bg-warning";
             } else {
-                ramProgress.className = "progress-bar bg-success"; 
+                ramProgress.className = "progress-bar bg-secondary"; 
             }
-
 
 
             // GPU Chart
             document.getElementById("igpu-name").innerHTML = data.igpu_name;
             document.getElementById("igpu-usage").innerHTML = data.igpu_usage + "%";
-            document.getElementById("igpu-temp").innerHTML = data.igpu_temp;
 
             if (data.has_dgpu) {
                 // If YES: Show all data completely
@@ -256,7 +254,6 @@ if (window.location.pathname == "/diagnostics") {
             }
 
 
-
             // Disk / Storage
             document.getElementById("disk-name").innerHTML = data.disk_name;
             document.getElementById("disk-total").innerHTML = data.disk_total + " GB";
@@ -268,17 +265,16 @@ if (window.location.pathname == "/diagnostics") {
             document.getElementById("bat-status").innerHTML = data.bat_status;
             document.getElementById("bat-percent").innerHTML = data.bat_percent + "%";
             document.getElementById("bat-charge").innerHTML = data.bat_charge;
-            document.getElementById("bat-time").innerHTML = data.bat_time;
 
             let batProgress = document.getElementById("bat-progress");
             batProgress.style.width = data.bat_percent + "%"; // Stretches the bar
 
             if (data.bat_percent <= 20 && data.bat_status === "On Battery") {
                 batProgress.className = "progress-bar bg-danger"; // Red when dying
-            } else if (data.bat_status === "Plugged In") {
+            } else if (data.bat_status === "Plugged In" || data.bat_charge === "Charging") {
                 batProgress.className = "progress-bar bg-success"; // Green when charging
             } else {
-                batProgress.className = "progress-bar bg-info"; // Blue for normal
+                batProgress.className = "progress-bar bg-secondary"; // Blue for normal
             }
 
 

@@ -32,6 +32,7 @@ if current_os == "Windows":
             GLOBAL_HAS_DGPU = True
             GLOBAL_DGPU_NAME = gpus[1].name.strip()
     except Exception:
+        # Pass if WMI is restricted or unavailable on this Windows host
         pass
 
 elif current_os == "Linux":
@@ -71,7 +72,7 @@ def data():
     current_time = time.time()
     time_diff = current_time - last_time
 
-    # Get cpu information
+    # Get CPU information
     cpu_percent = psutil.cpu_percent(interval=1)
 
     # Get RAM information
@@ -125,25 +126,6 @@ def diag_data():
     cpu_cores = psutil.cpu_count(logical=False)
     cpu_threads = psutil.cpu_count(logical=True)
 
-    if current_os == "Windows":
-        # Windows blocks raw CPU core temps without third-party drivers (like HWMonitor)
-        cpu_temp = "Blocked by OS" 
-        
-    elif current_os == "Linux":
-        try:
-            temps = psutil.sensors_temperatures()
-            if "k10temp" in temps:
-                cpu_temp = f"{round(temps['k10temp'][0].current)}°C"
-            elif "coretemp" in temps:
-                cpu_temp = f"{round(temps['coretemp'][0].current)}°C"
-            elif "acpitz" in temps:
-                cpu_temp = f"{round(temps['acpitz'][0].current)}°C"
-            else:
-                cpu_temp = "--°C"
-        except Exception:
-            cpu_temp = "--°C"
-
-
     # Memory Info
     memory = psutil.virtual_memory()
     total = memory.total
@@ -161,36 +143,16 @@ def diag_data():
     dgpu_name = GLOBAL_DGPU_NAME
     
     igpu_usage = 0
-    igpu_temp = "--°C"
     dgpu_usage = 0
     dgpu_temp = "--°C"
     dgpu_vram = "0.00 GB / 0.00 GB"
 
-    # Get Live Temps
-    # on windows the OS locked to see igpu temp
-    if current_os.lower() == "windows":
-        igpu_temp = "Blocked by OS"
-    # on Linux
-    elif current_os == "Linux":
-        try:
-            temps = psutil.sensors_temperatures()
-            if "amdgpu" in temps:
-                igpu_temp = f"{round(temps['amdgpu'][0].current)}°C"
-            elif "k10temp" in temps:
-                igpu_temp = f"{round(temps['k10temp'][0].current)}°C"
-            elif "acpitz" in temps:
-                igpu_temp = f"{round(temps['acpitz'][0].current)}°C"
-            elif "coretemp" in temps: 
-                igpu_temp = f"{round(temps['coretemp'][0].current)}°C"
-        except Exception:
-            pass
-
     try:
         import GPUtil
-        nvidia_gpus = GPUtil.getGPUs()
-        if nvidia_gpus:
+        gpus = GPUtil.getGPUs()
+        if gpus:
             has_dgpu = True
-            gpu = nvidia_gpus[0]
+            gpu = gpus[0]
             dgpu_name = gpu.name
             dgpu_usage = round(gpu.load * 100)
             dgpu_temp = f"{round(gpu.temperature)}°C"
@@ -212,7 +174,7 @@ def diag_data():
             with open("/sys/class/drm/card0/device/gpu_busy_percent", "r") as f:
                 igpu_usage = int(f.read().strip())
         except Exception:
-            igpu_usage = round(psutil.cpu_percent() * 0.2) # approximate baseline
+            igpu_usage = round(psutil.cpu_percent() * 0.2)
     else:
         # Windows iGPU approximation helper
         igpu_usage = round(psutil.cpu_percent() * 0.15)
@@ -220,6 +182,7 @@ def diag_data():
 
 
     # Disk Info
+    # Skip virtualized loop/tmpfs filesystems to ensure accurate physical drive reporting
     partitions = psutil.disk_partitions(all=False)
     drive_names = []
     total_space = 0
@@ -227,7 +190,6 @@ def diag_data():
     free_space = 0
 
     for p in partitions:
-        # Skip weird virtual Linux/Mac drives so it stays clean
         if 'loop' in p.device or 'tmpfs' in p.fstype:
             continue
             
@@ -241,8 +203,7 @@ def diag_data():
         except PermissionError:
             continue
 
-    # Joining all the drive names together
-    disk_name_str = " | ".join(drive_names)
+    disk_name_str = " | ".join(drive_names)  # Joining all the drive names together
     disk_total = f"{(total_space / (1024**3)):.2f}"
     disk_used = f"{(used_space / (1024**3)):.2f}"
     disk_free = f"{(free_space / (1024**3)):.2f}"
@@ -250,7 +211,7 @@ def diag_data():
 
     # Battery
     battery = psutil.sensors_battery()
-    # if system is a laptop or running in battery
+    # Check for physical battery presence (Laptops)
     if battery:
         bat_status = "Plugged In" if battery.power_plugged else "On Battery"
         bat_percent = battery.percent
@@ -261,22 +222,11 @@ def diag_data():
             bat_charge = "Fully Charged"
         else: 
             bat_charge = "Discharging"
-
-        time_remain =  battery.secsleft
-
-        if time_remain < 0 or time_remain > 1000000:
-            bat_time = "Calculating..."
-        else:
-            hours, remainder = divmod(time_remain, 3600)
-            minutes, _ = divmod(remainder, 60)
-            bat_time = f"{hours}h {minutes}m"
-
-    # if system is a desktop
+    # Fallback for desktops without physical batteries
     else: 
         bat_status = "AC Power"
         bat_percent = 100
         bat_charge = "Desktop (No Battery)"
-        bat_time = "--:--"
 
 
     # System Info
@@ -300,7 +250,6 @@ def diag_data():
     return jsonify({
         "cpu_name": cpu_name,
         "cpu_utilization": cpu_util,
-        "cpu_temp": cpu_temp,
         "cpu_current_fz": current_freq,
         "cpu_max_fz": max_freq,
         "cpu_proc": process,
@@ -315,7 +264,6 @@ def diag_data():
         "ram_percent": percent,
         "igpu_name": igpu_name,
         "igpu_usage": igpu_usage,
-        "igpu_temp": igpu_temp,
         "has_dgpu": has_dgpu,
         "dgpu_name": dgpu_name,
         "dgpu_usage": dgpu_usage,
@@ -328,7 +276,6 @@ def diag_data():
         "bat_status": bat_status,
         "bat_percent": bat_percent,
         "bat_charge": bat_charge,
-        "bat_time": bat_time, 
         "sys_name": os_name, 
         "sys_hostname": hostname,
         "sys_uptime": sys_uptime,
@@ -337,4 +284,5 @@ def diag_data():
     })
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # host='0.0.0.0' allows the app to be accessed over the network/cloud
+    app.run(host='0.0.0.0', port=5000, debug=True)

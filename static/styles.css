@@ -1,6 +1,7 @@
-
-p, li {
-    font-family: sans-serif;
+/*  GLOBAL & LAYOUT  */
+.app-container {
+    display: flex;
+    min-height: 100vh;
 }
 
 .custom-body {
@@ -8,6 +9,12 @@ p, li {
     color: #d1d5db;
 }
 
+p, li {
+    font-family: sans-serif;
+}
+
+
+/*  SIDEBAR NAVIGATION  */
 .sidebar {
     width: 250px;
     background-color: #21222d;
@@ -47,6 +54,8 @@ p, li {
     opacity: 1;
 }
 
+
+/*  DASHBOARD & COMPONENTS  */
 .custom-card {
     background-color: #21222d;
     border: 1px solid #2e2f3e;
@@ -76,6 +85,13 @@ p, li {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
+.custom-progress {
+    height: 15px; 
+    background-color: #2a2b36;
+} 
+
+
+/*  ABOUT PAGE SPECIFICS  */
 .links {
     display: flex;
     gap: 7.5rem; 
@@ -95,11 +111,17 @@ p, li {
     transform: translateY(-3px);
 }
 
-.custom-progress {
-    height: 15px; 
-    background-color: #2a2b36;
-} 
+.tech-icon {
+    width: 16px;
+    height: auto;
+}
 
+.invert-icon {
+    filter: invert(1);
+}
+
+
+/*  TYPOGRAPHY & UTILITIES  */
 .text-white {
     font-weight: 600; 
     letter-spacing: 1px;
@@ -120,15 +142,10 @@ p, li {
     font-size: 1rem;
 }
 
-.tech-icon {
-    width: 16px;
-    height: auto;
-}
-
-.invert-icon {
-    filter: invert(1);
-}
-
 .hr {
     border-color: #2b2f32;
+}
+
+h6 {
+    color: #d1d5db;
 }
