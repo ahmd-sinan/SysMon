@@ -84,10 +84,5 @@ This project is licensed under the standard **MIT License**
 
 ## About the Developer
 Built by ***Ahamed Sinan***
-* **GitHub:**[https://github.com/ahmd-sinan](https://github.com/ahmd-sinan)
-* **LinkedIn:** [https://www.linkedin.com/in/ahamed-sinan-k-840236343/](https://www.linkedin.com/in/ahamed-sinan-k-840236343/)
-* **X:** [https://x.com/Ahamed_Sinan_](https://x.com/Ahamed_Sinan_)
-
----
 
 *⭐ If you found this project helpful or interesting, feel free to drop a star on the repository!*
