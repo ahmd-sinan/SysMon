@@ -30,20 +30,24 @@ The project features an elegant, responsive dark-mode dashboard that displays co
 
 ---
 
-## File Structure Breakdown
-* **`app.py`**: The main Python backend. It runs the Flask server, figures out what operating system you are using, and gathers all the hardware data to send to the frontend.
-* **`requirements.txt`:** A simple list of the Python packages needed to run this application
-* **`.gitignore`**
-* **`LICENSE`:** Provisioned under standard MIT licensing agreements to allow open distribution structures.
-* **`static/`:** Frontend assets folder
-    * **`script.js`:** The JavaScript engine. It asks the Python backend for new data every single second and updates the HTML text and Chart.js graphs instantly
-    * **`styles.css`:** All the custom styling, dark-mode background colors, and hover animations for the cards.
-    * **`images/`:** icons and visual assets.
-* **`templates/`:** Contains all the HTML template layouts
-    * **`layout.html`:** This is base container file so the sidebar navigation structure is shared across pages
-    * **`index.html`:** The main dashboard page displaying live stats and graphs
-    * **`diagnostics.html`:** Exposes deep system specs like core counts, processes, and storage space
-    * **`about.html`:** Documents the application manifest and tech stack details
+## File Structure
+```
+---text
+sysmon/
+├── app.py               # It runs the Flask server, figures out what operating system you are using, and gathers all the hardware data to send to the frontend.
+├── requirements.txt     # A simple list of the Python packages needed to run this application
+├── .gitignore
+├── LICENSE              # Provisioned under standard MIT licensing agreements to allow open distribution structures.
+├── static/              
+│   ├── script.js        # The JavaScript, It asks the Python backend for new data every single second and updates the HTML text and Chart.js graphs instantly
+│   ├── styles.css       # Styling
+│   └── images/          # icons and visual assets.
+└── templates/           
+    ├── layout.html      # This is base container file so the sidebar navigation structure is shared across pages
+    ├── index.html       # The main dashboard page displaying live stats and graphs
+    ├── diagnostics.html # Exposes deep system specs like core counts, processes, and storage space
+    └── about.html       # Documents the application manifest and tech stack details.
+```
 
 ---
 
