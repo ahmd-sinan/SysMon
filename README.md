@@ -9,11 +9,19 @@ The project features an elegant, responsive dark-mode dashboard that displays co
 
 ---
 
-## Features
-* **Live Dashboards:** Tracks CPU, RAM, Disk, and Network performance live using dynamic charts
-* **Deep Hardware Diagnostics:** Exposes detailed specs like processor core counts, clock speeds, active processes, and storage capacities
-* **Cross-Platform:** Automatically detects whether it's running on Windows or Linux and adapts hardware sensor queries safely.
-* **Responsive Dark-Mode UI:** Built with Bootstrap 5 and custom CSS to provide a clean, modern dashboard that scales nicely across different screen sizes
+## Features / What the App Does 
+### 1. Main Live Dashboard (` / `)
+* **Real-Time Performance Stats:** Right when you open the app, the home page displays live text indicators tracking your current CPU usage, RAM allocation, disk read/write rates, and network download/upload speeds.
+* **Live Chart.js Graphs:** To help visualize hardware trends over time, I integrated Chart.js into the main dashboard. The frontend requests new telemetry data in the background every second and updates interactive line charts smoothly.
+
+### 2. Deep Hardware Diagnostics (` /diagnostics `)
+* **Comprehensive System Specs:** Navigating to the diagnostics page pulls an exhaustive breakdown of your hardware setup. 
+* **Processor & Memory Details:** It displays your exact CPU model name, active core and thread counts, current and maximum clock speeds (GHz), and total task process counts. For RAM, it differentiates between total capacity, available free space, active memory, and virtual swap files with color-coded warning progress bars.
+* **Dynamic GPU Detection:** The app checks whether a dedicated GPU (dGPU) exists on the host machine. If it does, it pulls usage, temperature, and VRAM statistics. If it doesn't (like on integrated-only systems or cloud servers), it safely displays "Not Available" with a dimmed UI layout instead of crashing.
+* **Power & Storage States:** Tracks local battery percentage, charging states, system uptime, and primary disk partition capacities.
+
+### 3. Application Information (` /about `)
+* **Tech Stack & Documentation:** A dedicated page documenting the project manifest, dependencies, and author links. It features an open-source MIT License breakdown and clean developer contact links.
 
 ---
 
@@ -62,6 +70,23 @@ sysmon/
 Background Data Fetching: Instead of reloading the web page every time the CPU usage changes, I created background data routes in Flask. The frontend uses JavaScript fetch() to grab this data in the background. This makes the dashboard feel completely real-time.
 * **Stopping Memory Leaks:** If a live chart runs for an hour, it collects thousands of data points and can crash the browser. To fix this, I wrote logic in JavaScript using `.shift()` to always delete the oldest data point once the chart hits 20 items. This keeps the browser fast forever.
 * **Handling Different Operating Systems:** Getting hardware data on a Windows PC is completely different than on a Linux server. I used `platform.system()` in Python to detect the OS. If a certain command (like checking a specific GPU) fails, I used `try/except` blocks to safely show "Not Available" instead of letting the whole app crash.
+
+---
+
+## AI Use Documented
+
+Per CS50's policy, here is where and how AI was used in this project:
+
+| where | what i asked for | what it did |
+| :--- | :--- | :--- |
+| `app.py`, Linux GPU detection (`lspci` block) | Asked how to parse Linux `lspci` terminal output using `subprocess` and string splits to extract GPU names for integrated and dedicated graphics. | Wrote the cross-platform command string parsing and list extraction logic. |
+| `app.py`, CPU brand retrieval (`cpuinfo`) | Asked how to get the clean CPU model name string using the `cpuinfo` library. | Provided the `cpuinfo.get_cpu_info()['brand_raw']` syntax with a fallback string. |
+| `app.py`, Memory tracking (Active, Inactive, Swap) | Asked how to pull detailed RAM statistics like active, inactive, and swap memory across platforms using `psutil`. | Explained how to access `psutil.swap_memory()` and virtual memory metrics. |
+| `app.py`, Cross-platform iGPU info loading | Asked how to safely load integrated GPU hardware names across different operating systems. | Provided structured logic using `platform` checks and fallback parameters. |
+| `app.py`, NVIDIA GPU metrics (`nvidia-smi`) | Asked how to execute terminal commands with `subprocess` to fetch dedicated NVIDIA GPU utilization, temperature, and VRAM in CSV format. | Wrote the `nvidia-smi` query string, CSV comma splitting, and string formatting formulas for gigabytes. |
+| `app.py`, Disk partitions and drive names | Asked how to retrieve all local disk partitions and clean up their display names using `psutil`. | Provided the disk usage iteration block and drive name parsing logic|
+| `app.py`, System uptime calculation | Asked how to calculate system uptime and format boot times into readable timestamps. | Provided the time formatting logic using Python's standard libraries. |
+| `script.js`, Dynamic progress bar color logic | Asked how to dynamically switch Bootstrap progress bar color classes (`bg-danger`, `bg-warning`, `bg-success`) based on live RAM and battery percentage thresholds. | Wrote the conditional class-switching statement logic for the client-side script. |
 
 ---
 
